@@ -91,12 +91,13 @@ Find DEBUG in the same file and make it False:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 ```
-At the top make the import dj_database_url:
+At the top make the import dj_database_url under the import os line:
 ```python
-
+import os
+import dj_database_url
 ```
 ### 3. Deployment
-Let’s get the deployment started.
+Letâ€™s get the deployment started.
 
 Open terminal and make empty project directory:
 ```
