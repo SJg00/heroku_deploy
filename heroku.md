@@ -27,7 +27,7 @@ A runtime.txt to specify the correct Python version in the project root;
 #### The Procfile
 Create a file inside your blog github repository, named **Procfile** in the project root with the following content:
 ```
-web: gunicorn mysite.wsgi --log-file -
+web: gunicorn mysite.wsgi
 ```
 and commit the changes.
 
