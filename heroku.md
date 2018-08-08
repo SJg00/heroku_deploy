@@ -58,6 +58,14 @@ Unipath==1.1
 webencodings==0.5.1
 whitenoise==3.3.1
 ```
+
+> Note that following requirements have major role in deployment:
+```
+dj-database-url==0.5.0
+dj-static==0.0.6
+psycopg2-binary
+whitenoise==3.3.1
+```
 ### The runtime.txt
 Create a file named runtime.txt in the project root, and put the specific Python version your project use:
 ```
