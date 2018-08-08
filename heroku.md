@@ -35,7 +35,7 @@ and commit the changes.
 This step is required if by some accident you don't have requirements.txt file.
 
 This is how a requirements.txt looks like:
-
+```
 bleach==2.1.3
 dj-database-url==0.5.0
 dj-static==0.0.6
@@ -59,7 +59,7 @@ static3==0.7.0
 Unipath==1.1
 webencodings==0.5.1
 whitenoise==3.3.1
-
+```
 ### The runtime.txt
 Create a file named runtime.txt in the project root, and put the specific Python version your project use:
 ```
