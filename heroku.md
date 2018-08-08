@@ -42,10 +42,8 @@ dj-static==0.0.6
 Django==2.0.7
 django-crispy-forms==1.7.2
 django-model-utils==3.1.2
-django-notifications-hq==1.5.0
 gunicorn==19.9.0
 html5lib==1.0.1
-humanize==0.5.1
 jsonfield==2.0.2
 Markdown==2.6.11
 mistune==0.8.3
