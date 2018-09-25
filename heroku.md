@@ -30,7 +30,8 @@ cd my_django_site
 ```
 Anyway, here is the two things you will need to add to your project:
 
-Add a Procfile in the project root
+Add a Procfile in the project root.
+
 Add requirements.txt file with all the requirements in the project root
 > Note that requirements are already in project root, bellow is explained how they looks if you don't have them.
 
