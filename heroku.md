@@ -1,3 +1,5 @@
+## New way
+
 ## 1. Install Heroku Toolbelt
 Sign up to Heroku. Then install the Heroku Toolbelt. It is a command line tool to manage your Heroku apps.
 
@@ -6,7 +8,7 @@ After installing the Heroku Toolbelt, open a terminal and login to your account:
 ```
 $ heroku login
 heroku: Enter your login credentials
-Email: goranmrd@gmail.com
+Email: your_email@gmail.com
 Password (typing will be hidden):
 Authentication successful.
 ```
@@ -16,132 +18,112 @@ In this tutorial we will deploy the blog app from Module 13.
 
 The Heroku deployment process is done through Git. Your application will be stored in a remote Git repository in the Heroku Cloud.
 
+**Create new virtual env and clone your project from Git inside it.**
+
+for example:
+```
+git clone https://github.com/CleverProgrammer/my_django_site
+```
+then
+```
+cd my_django_site
+```
 Anyway, here is the list of things you will probably need to add to your project:
 
 Add a Procfile in the project root;
 Add requirements.txt file with all the requirements in the project root;
-A runtime.txt to specify the correct Python version in the project root;
-> Note that requirements are already in project root, bellow is explained how to create it if you don't have them.
-### Configure whitenoise to serve static files.
+> Note that requirements are already in project root, bellow is explained how they looks if you don't have them.
 
 #### The Procfile
 Create a file inside your blog github repository, named **Procfile** in the project root with the following content:
 ```
-web: gunicorn mysite.wsgi
+web: gunicorn mysite.wsgi --log-file -
 ```
 and commit the changes.
 
 #### The requirements.txt
 This step is required if by some accident you don't have requirements.txt file.
 
-This is how a requirements.txt looks like:
-```
-bleach==2.1.3
-dj-database-url==0.5.0
-dj-static==0.0.6
-Django==2.0.7
+This is what requirements.txt should contain for now:
+
+certifi==2018.4.16
+Django==2.1
 django-crispy-forms==1.7.2
-django-model-utils==3.1.2
-gunicorn==19.9.0
-html5lib==1.0.1
-jsonfield==2.0.2
 Markdown==2.6.11
 mistune==0.8.3
-Pillow==5.2.0
-psycopg2==2.7.5
 Pygments==2.2.0
-python-decouple==3.1
 pytz==2018.5
-six==1.11.0
-static3==0.7.0
-Unipath==1.1
-webencodings==0.5.1
-whitenoise==3.3.1
+
+### Get the requirements for heroku
+Make sure your virtual env is activated and run:
+```
+$ pip install django-heroku
+```
+After installation is done, run:
+```
+$ pip install -r requirements.txt
+```
+and then run:
+```
+$ pip install gunicorn
+```
+Now type:
+```
+$ pip freeze > requirements.txt
 ```
 
-> Note that following requirements have major role in deployment:
-```
-dj-database-url==0.5.0
-dj-static==0.0.6
-psycopg2-binary
-whitenoise==3.3.1
-```
-### The runtime.txt
-Create a file named runtime.txt in the project root, and put the specific Python version your project use:
-```
-python-3.6.1
-```
-For example.
-## Set Up The Static Assets
-Configure the STATIC-related parameters.
-
-Add the Whitenoise to your Django application in the mysite/wsgi.py file:
-
+Open mysite/settings.py file and at the top make the import django_heroku under the import os line:
 ```python
-import os
-from django.core.wsgi import get_wsgi_application
-from whitenoise.django import DjangoWhiteNoise
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
-
-application = get_wsgi_application()
-application = DjangoWhiteNoise(application)
+import django_heroku
 ```
-Open the mysite/settings.py and add this lines at bottom:
-```python
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-DATABASES['default'] = dj_database_url.config()
-```
+
 Find DEBUG in the same file and make it False:
 ```python
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 ```
-At the top make the import dj_database_url under the import os line:
+Then go to ALLOWED_HOSTS and add '*':
 ```python
-import os
-import dj_database_url
+ALLOWED_HOSTS = ['*']
 ```
-### 3. Deployment
-Let’s get the deployment started.
 
-Open terminal and make empty project directory:
+And at the bottom under STATIC_URL add:
+```python
+# Activate Django-Heroku.
+django_heroku.settings(locals())
 ```
-$ mkdir myblog && cd myblog
-```
-Now, clone the repository you want to deploy, for example:
-```
-$ git clone https://github.com/goranmrd/cleverprogrammer_blog
-$ cd cleverprogrammer_blog
-```
-Create a file named .env and open the same.
+Save the changes.
+
+## 3. Deployment
+Let’s get the deployment started.
 
 Login to Heroku using the toolbelt (from Step 1):
 ```
 $ heroku login
 ```
 
-Inside the project root, create a Heroku App:
+Inside the project root, create a Heroku App with unique name for example:
 ```
-$ heroku create cp-blog-goran
+$ heroku create my-django-site
 ```
+If name is taken just try another one.
 
 Output:
 
 ```
-Creating ? cp-blog-goran... done
-https://cp-blog-goran.herokuapp.com/ | https://git.heroku.com/cp-blog-goran.git
+Creating ⬢ my-django-site... done
+https://my-django-site.herokuapp.com/ | https://git.heroku.com/my-django-site.git
 ```
-You can omit the app name parameter (in my case, cp-blog-goran), then Heroku will pick a name for you.
+You can omit the app name parameter (in my case, my-django-site), then Heroku will pick a name for you.
 
-Add a PostgreSQL database to your app:
+**Add a PostgreSQL database to your app:**
 ```
 heroku addons:create heroku-postgresql:hobby-dev
 ```
 
 Output:
 ```
-Creating heroku-postgresql:hobby-dev on ? cp-blog-goran... free
+Creating heroku-postgresql:hobby-dev on ⬢ my-django-site... free
 Database has been created and is available
  ! This database is empty. If upgrading, you can transfer
  <https://p4n4ua.dm.files.1drv.com/y4msVMtLR85W6ihpVqFSO-VEMudjS5Y_TLIN_tvNhjGHgJgU1zDfza4XLPU0OUMz7sZvWbYfpLkl9aC-oAMpTV7bpyOjIurhWlY2W5nNaJ325w7Rr8ErO1agsbyvqc6I9wUEWrRQmZuxsK0ddxeQwvB2I09ixddJKbYqg-JgKhyIG31tIv_au9wxkB0ETj300n2V3XbXl1FF2wNa_IY6wstxA/heroku_app.jpg?psid=1>! data from another database with pg:copy
@@ -217,20 +199,20 @@ remote: -----> Compressing...
 remote:        Done: 71.1M
 remote: -----> Launching...
 remote:        Released v5
-remote:        https://cp-blog-goran.herokuapp.com/ deployed to Heroku
+remote:        https://my-django-site.herokuapp.com/ deployed to Heroku
 remote:
 remote: Verifying deploy... done.
-To https://git.heroku.com/cp-blog-goran.git
+To https://git.heroku.com/my-django-site.git
 ```
 
-Migrate the database:
+**Migrate the database:**
 ```
 $ heroku run python manage.py migrate
 ```
 
 Output:
 ```
-Running python manage.py migrate on ? cp-blog-goran... up, run.5369 (Free)
+Running python manage.py migrate on ⬢ my-django-site... up, run.5369 (Free)
 /app/.heroku/python/lib/python3.6/site-packages/psycopg2/__init__.py:144: UserWarning: The psycopg2 wheel package will be renamed from release 2.8; in order to ke
 ep installing from binary please use "pip install psycopg2-binary" instead. For details see: <http://initd.org/psycopg/docs/install.html#binary-install-from-pypi>
 .
@@ -263,4 +245,5 @@ Running migrations:
 ```
 
 Try the URL in a web browser: 
-https://cp-blog-goran.herokuapp.com/
+https://my-django-site.herokuapp.com/
+
