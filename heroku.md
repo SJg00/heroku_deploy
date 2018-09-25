@@ -28,14 +28,14 @@ then
 ```
 cd my_django_site
 ```
-Anyway, here is the list of things you will probably need to add to your project:
+Anyway, here is the two things you will need to add to your project:
 
-Add a Procfile in the project root;
-Add requirements.txt file with all the requirements in the project root;
+Add a Procfile in the project root
+Add requirements.txt file with all the requirements in the project root
 > Note that requirements are already in project root, bellow is explained how they looks if you don't have them.
 
 #### The Procfile
-Create a file inside your blog github repository, named **Procfile** in the project root with the following content:
+Create a file inside your cloned project, named **Procfile** in the root with the following content:
 ```
 web: gunicorn mysite.wsgi --log-file -
 ```
@@ -59,7 +59,7 @@ Make sure your virtual env is activated and run:
 ```
 $ pip install django-heroku
 ```
-After installation is done, run:
+after installation is done, run:
 ```
 $ pip install -r requirements.txt
 ```
@@ -71,6 +71,7 @@ Now type:
 ```
 $ pip freeze > requirements.txt
 ```
+The requirements.txt should be ready now.
 
 Open mysite/settings.py file and at the top make the import django_heroku under the import os line:
 ```python
