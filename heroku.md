@@ -45,7 +45,7 @@ and commit the changes.
 #### The requirements.txt
 This step is required if by some accident you don't have requirements.txt file.
 
-This is what requirements.txt should contain for now:
+This is what requirements.txt should contain for **now**:
 
 certifi==2018.4.16
 Django==2.1
@@ -96,6 +96,12 @@ django_heroku.settings(locals())
 ```
 Save the changes.
 
+Now add these changes to git repo, in console or cmd type:
+```
+$ git add .
+$ git commit -m "heroku deployment ready"
+$ git push origin master
+```
 ## 3. Deployment
 Let’s get the deployment started.
 
