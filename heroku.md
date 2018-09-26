@@ -22,13 +22,13 @@ The Heroku deployment process is done through Git. Your application will be stor
 
 for example:
 ```
-git clone https://github.com/CleverProgrammer/my_django_site
+$ git clone https://github.com/CleverProgrammer/my_django_site
 ```
-then
+then:
 ```
-cd my_django_site
+$ cd my_django_site
 ```
-Anyway, here is the two things you will need to add to your project:
+Anyway, here are the two things you will need to add to your project:
 
 Add a Procfile in the project root.
 
