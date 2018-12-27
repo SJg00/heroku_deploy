@@ -49,12 +49,8 @@ This is what requirements.txt should contain for **now**:
 ```
 certifi==2018.4.16
 chardet==3.0.4
-dj-database-url==0.5.0
 Django==2.1.2
 django-crispy-forms==1.7.2
-django-heroku==0.3.1
-gunicorn==19.9.0
-heroku==0.1.4
 idna==2.7
 Markdown==2.6.11
 mistune==0.8.3
@@ -64,7 +60,6 @@ python-dateutil==1.5
 pytz==2018.5
 requests==2.19.1
 urllib3==1.23
-whitenoise==4.0
 ```
 ### Get the requirements for heroku
 Make sure your virtual env is activated and run:
